@@ -80,3 +80,50 @@ To check if a string ends with particular characters or words:
 ``` swift
 print(text.hasSuffix(".")) // Returns true or false
 ```
+
+### Working With Whole Numbers
+
+``` swift
+let score = 10
+```
+
+For big numbers, use an `_` to split up the 1,000's instead of a `,`:
+
+``` swift
+let bigNumber = 100_000_000
+```
+
+To add to a number:
+
+``` swift
+var total = 5
+total += 6
+```
+
+Subtract will be the same but using an `-` in place of the `+`.
+
+### Working With Decimals (a.k.a Floats or Doubles)
+
+``` swift
+let a = 1.0
+let b = 2.0
+let c = a + b
+```
+
+You cannot mix doubles and integers. This is called type safety. For example:
+
+``` swift
+let a = 1
+let b = 2.0
+let c = a + b
+```
+
+The above will error. The fix is to make a and b the same data type. For example, keep a as an int but add it to a double by converting it one time to a double:
+
+``` swift
+let a = 1
+let b = 2.0
+let c = Double(a) + b
+```
+
+Note: One a variable has been created, you cannot change its data type. For example: if it was a string at creation, it cannot be changed to an Int.
