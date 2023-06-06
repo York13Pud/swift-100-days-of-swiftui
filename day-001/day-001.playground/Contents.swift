@@ -1,3 +1,8 @@
 import Cocoa
 
-var greeting = "Hello, playground"
+// Variables
+var name = "Ted"
+name = "Fred"
+
+// Constants
+let drink = "Tea"
