@@ -10,6 +10,8 @@
 
 Example of a variable in Swift:
 
+``` swift
 var name = "Ted"
+```
 
 To assign a new value to the name variable:
