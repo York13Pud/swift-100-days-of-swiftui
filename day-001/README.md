@@ -38,3 +38,45 @@ Where possible, try to use constants over variables. This is due to the way memo
 
 Note: Variables and constants should use camel case for their names. For example, `playerName`.
 
+### Creating Strings
+
+To use `"` inside of a string, use the `\` escape character as normal. For example:
+
+``` swift
+let text = "This is called \"text\"." 
+```
+
+To do a multi-line string, use `"""` instead of `"` at each end of the string. For example:
+
+``` swift
+let textTwo = """
+This is a
+Test
+"""
+```
+
+To get the length of a string, use the .count method. For example:
+
+``` swift
+print(textTwo.count)
+```
+
+To change the case of a string, you can use one of these methods:
+
+``` swift
+print(text.uppercased()) // All uppercase.
+print(text.lowercased()) // All lowercase.
+print(text.capitalized)  // All first letters of a word are capitals.
+```
+
+To check if a string starts with particular characters or words:
+
+``` swift
+print(text.hasPrefix("Thi")) // Returns true or false
+```
+
+To check if a string ends with particular characters or words:
+
+``` swift
+print(text.hasSuffix(".")) // Returns true or false
+```
