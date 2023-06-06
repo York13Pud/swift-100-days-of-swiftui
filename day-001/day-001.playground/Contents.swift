@@ -35,3 +35,31 @@ print(text.hasPrefix("Thi")) // Returns true or false
 
 // Check if a string ends with particular characters or words:
 print(text.hasSuffix(".")) // Returns true or false
+
+// Working with integers:
+let score = 10
+
+// For big numbers, use an `_` to split up the 1,000's instead of a `,`:
+
+let bigNumber = 100_000_000
+
+// To add to a number:
+var total = 5
+total += 6
+print(total)
+
+// To perform multiplication and division:
+let totalMultiply = total * 5
+let totalDivide = total / 5
+
+// Add doubles:
+let a = 1.0
+let b = 2.0
+let c = a + b
+print(c)
+
+// Add an int to a double with a one time type coversion:
+let d = 1
+let e = 2.0
+let f = Double(d) + e
+print(f)
