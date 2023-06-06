@@ -33,3 +33,8 @@ let drink = "Tea"
 ```
 
 Attempting to assign a new value to a constant will result in an error.
+
+Where possible, try to use constants over variables. This is due to the way memory is managed and also helps prevent errors in the event of a variable being changed that should not have.
+
+Note: Variables and constants should use camel case for their names. For example, `playerName`.
+
