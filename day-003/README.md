@@ -74,4 +74,45 @@ Creating a set works much like creating an array: tell Swift what kind of data i
 
 ``` swift
 let people = Set(["Denzel Washington", "Tom Cruise", "Nicolas Cage", "Samuel L Jackson"])
+print(people)
 ```
+
+Notice how that actually creates an array first, then puts that array into the set? That’s intentional, and it’s the standard way of creating a set from fixed data. Remember, the set will automatically remove any duplicate values, and it won’t remember the exact order that was used in the array.
+
+Sets are faster to search with the `.contains()` method that on an array.
+
+The `.count`, `.remove("value to remove")` and `.sorted()` methods also work with sets.
+
+## Enums
+
+An enum – short for enumeration – is a set of named values we can create and use in our code. They don’t have any special meaning to Swift, but they are more efficient and safer, so you’ll use them a lot in your code.
+
+For example, create a list of weekdays that can be accessed: 
+
+``` swift
+enum Weekday {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+}
+```
+
+`case` Is a way to declare a value to enumerate. If we want to get the value for monday, simply do:
+
+``` swift
+var day = Weekday.monday
+print(day) // Returns monday
+```
+
+Another way to build an enum is with `,` instead of multiple case statements:
+
+``` swift
+enum WeekdayTwo {
+    case Monday, Tuesday, Wednesday, Thursday, Friday
+}
+print(WeekdayTwo.Tuesday)
+```
+
+The benefit here is that the list is pre-defined and as such, a person cannot then deviate from it and mess things up. They also cannot add to it like and array, set or dictionary. To add to it, you have to do it inside the enum itself (hardcoded).
