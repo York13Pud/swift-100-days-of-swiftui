@@ -75,3 +75,36 @@ print(dickens) // returns Unknown
 
 // A simple set:
 let people = Set(["Denzel Washington", "Tom Cruise", "Nicolas Cage", "Samuel L Jackson"])
+print(people)
+
+// Notice that the order for the ouput could be different.
+
+// Creating a blank set and then adding to it:
+var people2 = Set<String>()
+people2.insert("Denzel Washington")
+people2.insert("Tom Cruise")
+people2.insert("Nicolas Cage")
+people2.insert("Samuel L Jackson")
+people2.insert("Denzel Washington") // Doesn't error or warn when adding a duplicate.
+people2.remove("Tom Cruise")
+print(people2)
+
+
+// Enums
+
+enum Weekday {
+    case Monday
+    case Tuesday
+    case Wednesday
+    case Thursday
+    case Friday
+}
+
+let day = Weekday.Monday
+print(day) // Returns monday
+
+// Another way to build an enum is with `,` instead of multiple case statements:
+enum WeekdayTwo {
+    case Monday, Tuesday, Wednesday, Thursday, Friday
+}
+print(WeekdayTwo.Tuesday)
