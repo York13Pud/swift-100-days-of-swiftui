@@ -1,4 +1,4 @@
-# Day Two
+# Day Three
 
 ## Arrays
 
