@@ -73,3 +73,16 @@ case 2:
 default:
     print("A partridge in a pear tree")
 }
+
+// Ternary Operator
+
+// A simple check to see if a person is elligable to vote:
+let age = 17
+
+let canVote = age >= 18 ? "Yes" : "No"
+print(canVote) // Should be No (false)
+
+// An example with a bool checking for true without writing a comparison operator:
+let strongMagnets = true
+print(strongMagnets ? "Success" : "Failure")
+
