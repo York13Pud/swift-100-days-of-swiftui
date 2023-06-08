@@ -134,3 +134,15 @@ When a case is hit, it will carry on.
 
 ## Ternary Operator
 
+A ternary operator will check a condition and return back a value based on if it is true or false.
+
+``` swift
+let age = 18
+
+let canVote = age >= 18 ? "Yes" : "No"
+print(canVote)
+```
+
+The condition is `age >= 18`. If the condition is true, the response is `Yes` and if it is false, the response is "No".
+
+One case where a ternary is used where an if or a switch can't be used is in a print statement. They aren't allowed in print but ternary operations are. You can get around that by putting the print in the response for each condition in the if statement.
