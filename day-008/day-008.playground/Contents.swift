@@ -55,3 +55,22 @@ do {
 } catch {
     print("There was an error.")
 }
+
+// You can use multiple catch methods for when a specific error is thrown, just like with except in python.
+
+do {
+    let resultTwo = try checkPassword(string)
+        print("Password rating: \(resultTwo)")
+    }
+
+    catch PasswordError.short {
+        print("Please use a longer password.")
+    }
+    
+    catch PasswordError.obvious {
+        print("I have the same combination on my luggage!")
+    }
+    
+    catch {
+        print("There was an error.")
+}
