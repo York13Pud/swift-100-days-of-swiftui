@@ -28,5 +28,5 @@ func getUserData(for id: Int) -> String {
 }
 
 let data: (Int) -> String = getUserData
-let user = data(1986)
+let user = data(1989)
 print(user)
