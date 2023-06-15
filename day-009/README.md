@@ -161,3 +161,53 @@ print(tOnly)
 let uppercaseTeam = team.map { $0.uppercased() }
 print(uppercaseTeam)
 ```
+
+## Functions as Parameters
+
+You can pass functions as parameters very easily. Two examples:
+
+``` swift
+func doImportantWork(first: () -> Void,
+                     second: () -> Void,
+                     third: () -> Void) {
+    
+    print("About to start first work")
+    first()
+    print("About to start second work")
+    second()
+    print("About to start third work")
+    third()
+    print("Done!")
+}
+
+doImportantWork {
+    print("This is the first work")
+    }
+    second: {
+        print("This is the second work")
+    }
+    third: {
+        print("This is the third work")
+    }
+```
+
+``` swift
+// Passing a function as a parameter that will call another function:
+func makeArray(size: Int, using generator: () -> Int) -> [Int] {
+    var numbers = [Int]()
+
+    for _ in 0..<size {
+        let newNumber = generator()
+        numbers.append(newNumber)
+    }
+
+    return numbers
+}
+
+func generateNumber() -> Int {
+    Int.random(in: 1...20)
+}
+
+let newRolls = makeArray(size: 50, using: generateNumber)
+print(newRolls)
+```
