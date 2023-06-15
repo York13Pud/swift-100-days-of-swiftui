@@ -140,3 +140,6 @@ But first I want to break down what’s happening there:
 - Rather than passing in a function, we’re passing a closure – everything from the opening brace after by: down to the closing brace on the last line is part of the closure.
 - Directly inside the closure we list the two parameters sorted() will pass us, which are two strings. We also say that our closure will return a Boolean, then mark the start of the closure’s code by using in.
 - Everything else is just normal function code.
+
+## Trailing Closures
+
