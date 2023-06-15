@@ -143,3 +143,21 @@ But first I want to break down what’s happening there:
 
 ## Trailing Closures
 
+Best option is to read [this link]("https://www.hackingwithswift.com/quick-start/beginners/how-to-use-trailing-closures-and-shorthand-syntax") to cover it over again.
+
+In short, use shorthand when it can be reduced to one line. For example:
+
+``` swift
+let team = ["Gloria", "Suzanne", "Piper", "Tiffany", "Tasha"]
+
+// Do a reverse sort on the team array:
+let reverseTeam = team.sorted { $0 > $1 }
+
+// Show only members starting with a "T":
+let tOnly = team.filter { $0.hasPrefix("T") }
+print(tOnly)
+
+// Convert team members names to uppercase in a new array:
+let uppercaseTeam = team.map { $0.uppercased() }
+print(uppercaseTeam)
+```
