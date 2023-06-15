@@ -1,0 +1,3 @@
+# Day Ten
+
+## Structs
