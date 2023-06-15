@@ -211,3 +211,5 @@ func generateNumber() -> Int {
 let newRolls = makeArray(size: 50, using: generateNumber)
 print(newRolls)
 ```
+
+Summary: Closures are in-line code which can be a code block or a function call!
