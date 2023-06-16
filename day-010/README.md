@@ -62,3 +62,73 @@ These are sounding more and more like classes!
 
 ## Computed Struct Properties
 
+Best option is to read [this link]("https://www.hackingwithswift.com/quick-start/beginners/how-to-compute-property-values-dynamically") to cover it.
+
+## Observers
+
+These are used to check when a property changes and perform an action. For example, change the score three times and print out the new score. This is done with the `didSet` observer:
+
+``` swift
+struct Game {
+    var score = 0 {
+        didSet {
+            print("Score is now \(score)")
+        }
+    }
+}
+
+var game = Game()
+game.score += 10
+game.score -= 3
+game.score += 1
+```
+
+This will save us using print on another line when the score changes but it will not print out the score if the score is not changed.
+
+Another observer is the `willSet` observer. This can be used to show what the current value is and what the change will be. For example:
+
+``` swift
+struct App {
+    var contacts = [String]() {
+        willSet {
+            print("Current value is: \(contacts)")
+            print("New value will be: \(newValue)")
+        }
+
+        didSet {
+            print("There are now \(contacts.count) contacts.")
+            print("Old value was \(oldValue)")
+        }
+    }
+}
+
+var app = App()
+app.contacts.append("Adrian E")
+app.contacts.append("Allen W")
+app.contacts.append("Ish S")
+```
+
+`oldValue` and `newValue` are magic functions that are built-in to Swift that do what they say on the tin.
+
+## Creating Custom Initialisers
+
+Initialisers in swift work much the same as they do in Python. For example:
+
+``` swift
+struct Player {
+    let name: String
+    let number: Int
+
+    init(name: String) {
+        self.name = name
+        number = Int.random(in: 1...99)
+    }
+}
+
+let player = Player(name: "Megan R")
+print(player.number)
+```
+
+Just remember the golden rule: all properties must have a value by the time the initializer ends. If we had not provided a value for number inside the initializer, Swift would refuse to build our code.
+
+Important: Although you can call other methods of your struct inside your initializer, you can’t do so before assigning values to all your properties – Swift needs to be sure everything is safe before doing anything else.
