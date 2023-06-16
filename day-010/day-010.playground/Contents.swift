@@ -4,7 +4,7 @@ import Cocoa
 
 struct Album {
     let title: String
-    let artist: String
+    var artist: String = "Fish"
     let year: Int
 
     func printSummary() {
