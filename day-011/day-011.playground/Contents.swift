@@ -1,7 +1,7 @@
 import Cocoa
 
 struct BankAccount {
-    private var funds = 0
+    private(set) var funds = 0
 
     mutating func deposit(amount: Int) {
         funds += amount
@@ -29,5 +29,4 @@ if success {
 
 // This will not work as the funds variable is marked as private so it is not accessible
 // outside of the struct.
-// print(account.funds)
-
+print(account.funds)
