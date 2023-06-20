@@ -1,5 +1,8 @@
 import Cocoa
 
+
+// Protocols:
+
 protocol Vehicle {
     var name: String { get }
     var currentPassengers: Int { get set }
@@ -60,3 +63,35 @@ func getTravelEstimates(using vehicles: [Vehicle], distance: Int) {
 }
 
 getTravelEstimates(using: [car, bike], distance: 150)
+
+// Opaque Return Types:
+
+// Equatable means they can be used to compare for equality.
+func getRandomNumber() -> some Equatable {
+    return Int.random(in: 1...6)
+}
+
+func getRandomBool() -> some Equatable {
+    return Bool.random()
+}
+
+print(getRandomNumber() == getRandomNumber())
+
+// Extensions:
+
+var quote = "   The truth is rarely pure and never simple   "
+print("Quote: \(quote)")
+
+// Remove the whitespaces at the start and end:
+let trimmed = quote.trimmingCharacters(in: .whitespacesAndNewlines)
+print("One: \(trimmed)")
+
+// Do the same again but this time extend the String data type:
+extension String {
+    func trimmed() -> String {
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+let trimmedTwo = quote.trimmed()
+print("Two: \(trimmedTwo)")
