@@ -46,3 +46,28 @@ The struct `Car` must conform to what is outlined in the `Vehicle` protocol. The
 You can also use multiple protocols in a class or struct using comma-separated values.
 
 Note: If you need to sub-class a class, put the name of the class before any protocols.
+
+## Extensions
+
+Extensions allow swift to add additional functionality to existing types, such as strings.
+
+For example, add an extension to the String data type to remove leading and trailing whitespace:
+
+``` swift
+var quote = "   The truth is rarely pure and never simple   "
+print("Quote: \(quote)")
+
+// Remove the whitespaces at the start and end:
+let trimmed = quote.trimmingCharacters(in: .whitespacesAndNewlines)
+print("One: \(trimmed)")
+
+// Do the same again but this time extend the String data type:
+extension String {
+    func trimmed() -> String {
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+let trimmedTwo = quote.trimmed()
+print("Two: \(trimmedTwo)")
+```
