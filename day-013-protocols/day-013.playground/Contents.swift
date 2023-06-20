@@ -79,12 +79,13 @@ print(getRandomNumber() == getRandomNumber())
 
 // Extensions:
 
+// Define a string of text with leading and trailing whitespaces:
 var quote = "   The truth is rarely pure and never simple   "
 print("Quote: \(quote)")
 
-// Remove the whitespaces at the start and end:
-let trimmed = quote.trimmingCharacters(in: .whitespacesAndNewlines)
-print("One: \(trimmed)")
+// Remove the whitespaces at the start and end without an extension:
+let trimmedOne = quote.trimmingCharacters(in: .whitespacesAndNewlines)
+print("One: \(trimmedOne)")
 
 // Do the same again but this time extend the String data type:
 extension String {
