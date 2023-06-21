@@ -1,7 +1,7 @@
 import Cocoa
 
 let opposites = [
-    "Mario": "Wario",
+    "Marion": "Wario",
     "Luigi": "Waluigi"
 ]
 
