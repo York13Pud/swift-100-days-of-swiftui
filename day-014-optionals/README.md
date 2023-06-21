@@ -57,3 +57,62 @@ if let unwrappedName = username {
 ```
 
 The above will be nil as the `username` is not changed so the output will be the `else` clause.
+
+## Guard
+
+Guard works similar to `if let / var` except it does the opposite. If a value is not present, the code will run, unlike an `if let / var`.
+
+Note:
+- If you use guard to check a function’s inputs are valid, Swift will always require you to use return if the check fails.
+- If the check passes and the optional you’re unwrapping has a value inside, you can use it after the guard code finishes.
+
+For example:
+
+``` swift
+func printSquare(of number: Int?) {
+    guard let number = number else {
+        print("Missing input")
+
+        // 1: We *must* exit the function here
+        return
+    }
+
+    // 2: `number` is still available outside of `guard`
+    print("\(number) x \(number) is \(number * number)")
+}
+```
+
+## Handling Errors
+
+``` swift
+enum UserError: Error {
+    case badID, networkFailed
+}
+
+func getUser(id: Int) throws -> String {
+    throw UserError.networkFailed
+}
+
+if let user = try? getUser(id: 23) {
+    print("User: \(user)")
+}
+```
+
+The getUser() function will always throw a networkFailed error, which is fine for our testing purposes, but we don’t actually care what error was thrown – all we care about is whether the call sent back a user or not.
+
+This is where try? helps: it makes getUser() return an optional string, which will be nil if any errors are thrown. If you want to know exactly what error happened then this approach won’t be useful, but a lot of the time we just don’t care.
+
+If you want, you can combine try? with nil coalescing, which means “attempt to get the return value from this function, but if it fails use this default value instead.”
+
+Be careful, though: you need to add some parentheses before nil coalescing so that Swift understands exactly what you mean. For example, you’d write this:
+
+``` swift
+let user = (try? getUser(id: 23)) ?? "Anonymous"
+print(user)
+```
+
+You’ll find try? is mainly used in three places:
+
+    In combination with guard let to exit the current function if the try? call returns nil.
+    In combination with nil coalescing to attempt something or provide a default value on failure.
+    When calling any throwing function without a return value, when you genuinely don’t care if it succeeded or not – maybe you’re writing to a log file or sending analytics to a server, for example.
