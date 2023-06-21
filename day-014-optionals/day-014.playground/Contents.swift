@@ -18,3 +18,39 @@ if let unwrappedName = username {
 } else {
     print("The optional was empty.")
 }
+
+// Guard:
+
+func printSquare(of number: Int? = nil) {
+    guard let number = number else {
+        print("Missing input")
+
+        // 1: We *must* exit the function here
+        return
+    }
+
+    // 2: `number` is still available outside of `guard`
+    print("\(number) x \(number) is \(number * number)")
+}
+
+printSquare() // Returns "missing input"
+printSquare(of: 8) // Returns result
+
+// Error handling
+
+enum UserError: Error {
+    case badID, networkFailed
+}
+
+func getUser(id: Int) throws -> String {
+    throw UserError.networkFailed
+}
+
+if let user = try? getUser(id: 23) {
+    print("User: \(user)")
+}
+
+// Or:
+
+let user = (try? getUser(id: 23)) ?? "Anonymous"
+print(user)
