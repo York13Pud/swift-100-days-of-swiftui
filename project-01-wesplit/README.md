@@ -127,3 +127,20 @@ The main difference here is the `$name` in the `TextField`. The `$` implies that
 
 ## Creating Views In A Loop
 
+SwiftUI gives us a dedicated view type for this purpose, called ForEach. This can loop over arrays and ranges, creating as many views as needed. Even better, ForEach doesn’t get hit by the 10-view limit that would affect us if we had typed the views by hand.
+
+ForEach will run a closure once for every item it loops over, passing in the current loop item. For example, if we looped from 0 to 100 it would pass in 0, then 1, then 2, and so on.
+
+For example, this creates a form with 100 rows:
+
+``` swift
+Form {
+    ForEach(1..<11) { number in // Create 10 rows 1 - 10. 11 is skipped due to the <.
+        Text("Row \(number)")
+    }
+    // Or it can be written short hand:
+    ForEach(0 ..< 11) {
+        Text("Row \($0)")
+    }
+}
+```
