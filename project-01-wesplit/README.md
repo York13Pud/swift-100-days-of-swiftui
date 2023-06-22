@@ -99,3 +99,31 @@ struct ContentView: View {
 ```
 
 States are also only stored inside the view and as such are destroyed when the view is closed. One recommendation is to make any `@State vars / lets` as `private`.
+
+## Binding State To User Interface Controls
+
+A two way binding is required when you need to read a property as well as write to it at the same time. For example, a text field that allows you to enter some text that is set to store its value in a var called name:
+
+``` swift
+import SwiftUI
+
+struct ContentView: View {
+    @State private var name = ""
+    
+    var body: some View {
+        VStack {
+            Form {
+                    TextField("Enter your name", text: $name)
+                    Text("Your name is \(name)")
+            }
+        }
+        .padding()
+    }
+}
+
+```
+
+The main difference here is the `$name` in the `TextField`. The `$` implies that this is a two-way binding. Without it, the app will not run. When you reference back to the value of `name` in the `Text` box, it only needs the name of the variable as it does not write to it, only reads it.
+
+## Creating Views In A Loop
+
