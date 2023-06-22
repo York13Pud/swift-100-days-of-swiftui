@@ -8,28 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    var tapCount = 0
+    
     var body: some View {
         VStack {
 //            Image(systemName: "globe")
 //                .imageScale(.large)
 //                .foregroundColor(.accentColor)
-            Form {
-                Section {
-                    Text("Hello, world!")
-                    Text("Hello, world!")
-                } header: {
-                    Text("This is a header")
+            NavigationView {
+                Form {
+                    Section {
+                        Text("Hello, world!")
+                        Text("Hello, world!")
+                    } header: {
+                        Text("This is a header")
+                    }
+                    
+                    Section {
+                        Text("Hello, world!")
+                        Text("Hello, world!")
+                    } header: {
+                        Text("This is another header")
+                    } footer: {
+                        Text("Here is a footer of text")
+                    }
                 }
-                
-                Section {
-                    Text("Hello, world!")
-                    Text("Hello, world!")
-                } header: {
-                    Text("This is another header")
-                } footer: {
-                    Text("Here is a footer of text")
-                }
-                
+                .navigationTitle("SwiftUI")
             }
         }
         .padding()
