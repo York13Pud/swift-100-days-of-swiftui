@@ -1,5 +1,7 @@
 # Project One - WeSplit
 
+## SwiftUI Project Structure
+
 Default files created when starting a new app:
 
 - WeSplitApp.swift - Stores code for launching the app.
@@ -31,3 +33,14 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 ```
+
+Note: opt+cmd+p to refresh the canvas area.
+
+## Creating Forms
+
+SwiftUI has a view type called Form to create forms.
+
+You can add a maximum of ten (10) items to a form. More that that requires them to be put into groups or sections. This is a limitation of SwiftUI.
+
+Groups does not modify the layout of the elements on the screen.
+Sections does split things up, similar to the way a settings or preferences window would have.
