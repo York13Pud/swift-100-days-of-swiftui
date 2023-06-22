@@ -78,3 +78,22 @@ struct ContentView: View {
 ```
 
 Note: The `.navigationTitle` modifier has to be attached to the `Form`, not the `NavigationView`.
+
+## Modifying App State
+
+If you need to modify a var that is part of of a ContentView struct, it won't let you as it might be created as a constant. We can't use `mutating` either. The work around for this is to use a wrapper function called `@State`. For example:
+
+``` swift
+import SwiftUI
+
+struct ContentView: View {
+    @State var tapCount = 0 // Without @State, the count will not increase when the button is pressed.
+                            // In face, the app won't even compile / run.
+    
+    var body: some View {
+        Button("Tap Count \(tapCount)") { // On tap, update tapCount and update the text inside the button.
+            tapCount += 1
+        }
+    }
+}
+```
