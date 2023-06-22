@@ -44,3 +44,37 @@ You can add a maximum of ten (10) items to a form. More that that requires them 
 
 Groups does not modify the layout of the elements on the screen.
 Sections does split things up, similar to the way a settings or preferences window would have.
+
+## NavigationView
+
+Use the NavigationView to add a title area to a form to stop it from scrolling into the safe area at the top of the screen. For example:
+
+``` swift
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+//            Image(systemName: "globe")
+//                .imageScale(.large)
+//                .foregroundColor(.accentColor)
+            NavigationView {
+                Form {                    
+                    Section {
+                        Text("Hello, world!")
+                        Text("Hello, world!")
+                    } header: {
+                        Text("This is another header")
+                    } footer: {
+                        Text("Here is a footer of text")
+                    }
+                }
+                .navigationTitle("SwiftUI")
+            }
+        }
+        .padding()
+    }
+}
+```
+
+Note: The `.navigationTitle` modifier has to be attached to the `Form`, not the `NavigationView`.
