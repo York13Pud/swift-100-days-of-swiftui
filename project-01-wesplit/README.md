@@ -87,8 +87,8 @@ If you need to modify a var that is part of of a ContentView struct, it won't le
 import SwiftUI
 
 struct ContentView: View {
-    @State var tapCount = 0 // Without @State, the count will not increase when the button is pressed.
-                            // In face, the app won't even compile / run.
+    @State private var tapCount = 0 // Without @State, the count will not increase when the button is pressed.
+                                    // In face, the app won't even compile / run.
     
     var body: some View {
         Button("Tap Count \(tapCount)") { // On tap, update tapCount and update the text inside the button.
@@ -97,3 +97,5 @@ struct ContentView: View {
     }
 }
 ```
+
+States are also only stored inside the view and as such are destroyed when the view is closed. One recommendation is to make any `@State vars / lets` as `private`.
