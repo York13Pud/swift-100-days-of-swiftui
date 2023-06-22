@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var tapCount = 0
+    @State var tapCount = 0
     
     var body: some View {
         VStack {
@@ -34,6 +34,9 @@ struct ContentView: View {
                     }
                 }
                 .navigationTitle("SwiftUI")
+            }
+            Button("Tap Count \(tapCount)") {
+                tapCount += 1
             }
         }
         .padding()
