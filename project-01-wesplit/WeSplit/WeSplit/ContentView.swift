@@ -10,10 +10,27 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+//            Image(systemName: "globe")
+//                .imageScale(.large)
+//                .foregroundColor(.accentColor)
+            Form {
+                Section {
+                    Text("Hello, world!")
+                    Text("Hello, world!")
+                } header: {
+                    Text("This is a header")
+                }
+                
+                Section {
+                    Text("Hello, world!")
+                    Text("Hello, world!")
+                } header: {
+                    Text("This is another header")
+                } footer: {
+                    Text("Here is a footer of text")
+                }
+                
+            }
         }
         .padding()
     }
