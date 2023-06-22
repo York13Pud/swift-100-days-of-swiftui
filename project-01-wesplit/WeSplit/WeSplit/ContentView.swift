@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var tapCount = 0
+    @State private var name = ""
     
     var body: some View {
         VStack {
@@ -17,6 +18,8 @@ struct ContentView: View {
 //                .foregroundColor(.accentColor)
             NavigationView {
                 Form {
+                    TextField("Enter your name", text: $name)
+                    Text("Your name is \(name)")
                     Section {
                         Text("Hello, world!")
                         Text("Hello, world!")
