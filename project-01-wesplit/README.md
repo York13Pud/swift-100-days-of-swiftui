@@ -147,8 +147,11 @@ Form {
 
 ## Misc
 
-The following line of text will create a `TextField` that uses a two-way binding with `$checkAmount` that is in the `format` of a `currency`, that gets the currency `code` to use from the system settings (`Locale.current.currencyCode`) and default to USD if it is not set (`?? "USD"`).
+The following line of text will create a `TextField` with a placeholder of `Amount`. It uses a two-way binding with `$checkAmount` that is in the `format` of a `currency`. It gets the currency `code` to use from the system settings (`Locale.current?.identifier`) and defaults to USD if it is not set (`?? "USD"`).
+
+Lastly, the `.keyboardType(.decimalPad)` modifier is used to set the on-screen keyboard to display a numberpad with a decimal point view, instead of the standard alpha-numeric keyboard view.
 
 ``` swift
-TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current?.identifier ?? "USD"))
+.keyboardType(.decimalPad)
 ```
