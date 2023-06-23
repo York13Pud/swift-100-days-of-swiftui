@@ -144,3 +144,11 @@ Form {
     }
 }
 ```
+
+## Misc
+
+The following line of text will create a `TextField` that uses a two-way binding with `$checkAmount` that is in the `format` of a `currency`, that gets the currency `code` to use from the system settings (`Locale.current.currencyCode`) and default to USD if it is not set (`?? "USD"`).
+
+``` swift
+TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+```
