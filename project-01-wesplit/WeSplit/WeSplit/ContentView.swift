@@ -9,11 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount: Double = 0.0
-    @State private var numberOfPeople: Int = 2
-    @State private var tipPercentage = 20
+    @State private var numberOfPeople: Int = 0
+    @State private var tipPercentage = 0
     @FocusState private var amountIsFocused: Bool
     
-    private let tipPercentages: [Int] = [10, 15, 20, 25, 0]
+    let deviceCurrency: FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currency?.identifier ?? "USD")
+    
+//    private let tipPercentages: [Int] = [10, 15, 20, 25, 0]
     
     var totalPerPerson: Array<Double> {
         let peopleCount = Double(numberOfPeople + 2)
@@ -35,7 +37,7 @@ struct ContentView: View {
                         HStack {
                             Text("Enter Bill Amount")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                            TextField("Amount", value: $checkAmount, format: deviceCurrency)
                                 .keyboardType(.decimalPad)
                                 .focused($amountIsFocused)
                                 .multilineTextAlignment(.trailing)
@@ -44,15 +46,24 @@ struct ContentView: View {
                             ForEach(2..<100) {
                                 Text("\($0) People")
                             }
-                        }
+                        } 
+                    } header: {
+                        Text("Bill Details")
                     }
                     
                     Section {
-                        Picker("Tip percentage", selection: $tipPercentage) {
-                            ForEach(tipPercentages, id: \.self) {
-                                Text($0, format: .percent)
+                        Picker("Tip Percentage", selection: $tipPercentage) {
+                            ForEach(0..<101) {
+                                if $0 % 5 == 0 {
+                                    Text("\($0)%")
+                                }
                             }
-                        } .pickerStyle(.segmented)
+                        }
+//                        Picker("Tip percentage", selection: $tipPercentage) {
+//                            ForEach(tipPercentages, id: \.self) {
+//                                Text($0, format: .percent)
+//                            }
+//                        } .pickerStyle(.segmented)
                     } header: {
                         Text("Tip Amount")
                     }
@@ -61,21 +72,21 @@ struct ContentView: View {
                         HStack {
                             Text("Total Tip Value")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("\(totalPerPerson[1], format: .currency(code: Locale.current.currency?.identifier ?? "USD"))")
+                            Text("\(totalPerPerson[1], format: deviceCurrency)")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         
                         HStack {
                             Text("Total Bill Value")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("\(totalPerPerson[2], format: .currency(code: Locale.current.currency?.identifier ?? "USD"))")
+                            Text("\(totalPerPerson[2], format: deviceCurrency)")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         
                         HStack {
                             Text("Total Per Person")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("\(totalPerPerson[0], format: .currency(code: Locale.current.currency?.identifier ?? "USD"))")
+                            Text("\(totalPerPerson[0], format: deviceCurrency)")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         
