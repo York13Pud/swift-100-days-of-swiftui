@@ -14,72 +14,98 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let temperatureUnits: Array = ["Celsius", "Fahrenheit", "Kelvin"]
-
+    // Define required vars and constants:
+    
+    let temperatureUnits: Array = ["Celsius", "Fahrenheit", "Kelvin"]
+    
     @State private var temperature: Double = 0.00
     @State private var temperatureUnit: String = "Celsius"
-
+    @State private var convertTemperatureToUnit: String = "Fahrenheit"
+    
     @FocusState private var isFocused: Bool
     
-    var convertedTemperatures: Dictionary<String, Double> {
-        var convertedC: Double = 0
-        var convertedF: Double = 0
-        var convertedKelvin: Double = 0
+    // This variable performs the conversion from one unit to another:
+    var convertedTemperatures: Double {
         
-        if temperatureUnit == "Celsius" {
-            convertedC = temperature
-            convertedF = (temperature * 9/5) + 32
-            convertedKelvin = temperature + 273.15
-        } else if temperatureUnit == "Fahrenheit" {
-            convertedC = (temperature - 32) * 5/9
-            convertedF = temperature
-            convertedKelvin = (temperature - 32) * 5/9 + 273.15
-        } else if temperatureUnit == "Kelvin" {
-            convertedC = temperature - 273.15
-            convertedF = (temperature - 273.15) * 9/5 + 32
-            convertedKelvin = temperature
+        if temperatureUnit == "Celsius" && convertTemperatureToUnit == "Fahrenheit" {
+            let convertedValue = (temperature * 9/5) + 32
+            return convertedValue
+        } else if temperatureUnit == "Celsius" && convertTemperatureToUnit == "Kelvin" {
+            let convertedValue = temperature + 273.15
+            return convertedValue
+        } else if temperatureUnit == "Fahrenheit" && convertTemperatureToUnit == "Celsius" {
+            let convertedValue = (temperature - 32) * 5/9
+            return convertedValue
+        } else if temperatureUnit == "Fahrenheit" && convertTemperatureToUnit == "Kelvin" {
+            let convertedValue = (temperature - 32) * 5/9 + 273.15
+            return convertedValue
+        } else if temperatureUnit == "Kelvin" && convertTemperatureToUnit == "Celsius" {
+            let convertedValue = temperature - 273.15
+            return convertedValue
+        } else if temperatureUnit == "Kelvin" && convertTemperatureToUnit == "Fahrenheit" {
+            let convertedValue = (temperature - 273.15) * 9/5 + 32
+            return convertedValue
         }
         
-        return ["Celsius": convertedC, "Fahrenheit": convertedF, "Kelvin": convertedKelvin]
+        return temperature
     }
-    
+        
     var body: some View {
         VStack {
             NavigationView {
+                
                 Form {
+                    
                     Section {
+                        
                         HStack {
                             Text("Enter Temperature") .frame(maxWidth: .infinity, alignment: .leading)
                             TextField("Temperature", value: $temperature, format: .number)
                                 .keyboardType(.decimalPad)
                                 .focused($isFocused)
                                 .multilineTextAlignment(.trailing)
-                            }
+                        }
                         
-                            Picker("Convert From", selection: $temperatureUnit) {
-                                ForEach(temperatureUnits, id: \.self ) {
-                                    Text($0)
+                        Picker("Convert From", selection: $temperatureUnit) {
+                            ForEach(temperatureUnits, id: \.self ) { unit in
+                                // Show only the units that are not the same as Convert To:
+                                if unit != convertTemperatureToUnit {
+                                    Text(unit)
                                 }
+
                             }
-                    } header: {
-                        Text("Convert From")
-                    }
-                    
-                    Section {
-                        ForEach(Array(convertedTemperatures.keys.sorted()), id: \.self) {key in
-                            if key != temperatureUnit {
-                                HStack {
-                                    Text("Converted To \(key)") .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("\(convertedTemperatures[key] ?? 0.0, specifier: "%.2f")")
+                        }
+                        
+                        Picker("Convert To", selection: $convertTemperatureToUnit) {
+                            ForEach(temperatureUnits, id: \.self ) { unit in
+                                // Show only the units that are not the same as Convert From:
+                                if unit != temperatureUnit {
+                                    Text(unit)
                                 }
                             }
                         }
                         
                     } header: {
-                        Text("Converted Temperatures")
+                        Text("Convert From")
                     }
                     
-                } .navigationTitle("Temperature Converter")
+                    Section {
+                        
+                        HStack {
+                            Text("Temperature in \(convertTemperatureToUnit)") .frame(maxWidth: .infinity, alignment: .leading)
+                            Text("\(convertedTemperatures, specifier: "%.2f")")
+                                .keyboardType(.decimalPad)
+                                .focused($isFocused)
+                                .multilineTextAlignment(.trailing)
+                        }
+                        
+                    } header: {
+                        Text("Converted Temperature")
+                    }
+                    
+                } .navigationTitle("Temp Converter V0")
+                    
+                    // Show a Done button on the keyboard in the top right:
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             Spacer()
@@ -93,8 +119,11 @@ struct ContentView: View {
     }
 }
 
+// Show a preview of the ContentView:
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
