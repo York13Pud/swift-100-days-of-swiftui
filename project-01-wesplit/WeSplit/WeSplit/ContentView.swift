@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    // Define required vars and constants:
+    
     @State private var checkAmount: Double = 0.0
     @State private var numberOfPeople: Int = 0
     @State private var tipPercentage = 0
