@@ -21,6 +21,26 @@ struct CapsuleText: View {
     }
 }
 
+// An example of a custom modifier:
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .padding()
+            .background(.blue)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+// Create an extension for view to add titleStyle that uses the above custom modifier.
+// This will make it easier to call:
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+}
+
 struct ContentView: View {
     @State private var useRedText = false
     var body: some View {
@@ -33,6 +53,14 @@ struct ContentView: View {
             Text("Hello")
                 .frame(maxWidth: 100, maxHeight: 100)
                 .background(.red)
+            
+            // Example 1 of using a custom modifier:
+            Text("Hello World")
+                .modifier(Title())
+            
+            // Example 1 of using a custom modifier - Use the titleStyle extension:
+            Text("Hello World")
+                .titleStyle() // Both results are the same.
             
             // An example of modifier order execution:
             Text("Hello, world!")

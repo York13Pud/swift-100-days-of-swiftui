@@ -244,3 +244,45 @@ struct ContentView: View {
 
 A good use case for this would be putting a custom frame around photos to show various attributes or a menu.
 
+## Custom Modifiers
+
+You can create a custom modifier that can be applied to a view element(s). For example, create a custom modifier to be applied to a text box view:
+
+``` swift
+// An example of a custom modifier:
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .padding()
+            .background(.blue)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+// Create an extension for view to add titleStyle that uses the above custom modifier.
+// This will make it easier to call:
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+}
+
+struct ContentView: View {
+    @State private var useRedText = false
+    var body: some View {
+        VStack {
+            // Example 1 of using a custom modifier:
+            Text("Hello World")
+                .modifier(Title())
+            
+            // Example 1 of using a custom modifier - Use the titleStyle extension:
+            Text("Hello World")
+                .titleStyle() // Both results are the same.
+        }
+    }
+}
+```
+
+As you can see, there are two ways to call the custom modifier. The first is with the `.modifier` method (example 1), which calls the custom modifier directly or create an extension to `view` and call that (example 2).
