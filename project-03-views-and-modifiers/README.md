@@ -285,4 +285,4 @@ struct ContentView: View {
 }
 ```
 
-As you can see, there are two ways to call the custom modifier. The first is with the `.modifier` method (example 1), which calls the custom modifier directly or create an extension to `view` and call that (example 2).
+As you can see, there are two ways to call the custom modifier. The first is with the `.modifier` method (example 1), which calls the custom modifier directly or create an extension to `view` and call that (example 2) instead.
