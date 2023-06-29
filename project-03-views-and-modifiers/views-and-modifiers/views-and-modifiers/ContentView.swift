@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var useRedText = false
     var body: some View {
         VStack {
+            // An example of modifier order. Change background to be after .frame for aa different look
             Text("Hello")
                 .background(.red)
                 .frame(maxWidth: 100, maxHeight: 100)
+            
+            Text("Hello")
+                .frame(maxWidth: 100, maxHeight: 100)
+                .background(.red)
             
             // An example of modifier order execution:
             Text("Hello, world!")
@@ -24,6 +30,23 @@ struct ContentView: View {
                 .background(.green)
                 .padding()
                 .background(.yellow)
+            
+            // An example of a conditional modifier:
+            Button("Hello World") {
+                        // flip the Boolean between true and false
+                        useRedText.toggle()
+                    }
+                    .foregroundColor(useRedText ? .red : .blue)
+            
+            // An example of an environment modifier
+            VStack {
+                Text("Gryffindor")
+                    .font(.largeTitle)
+                Text("Hufflepuff")
+                Text("Ravenclaw")
+                Text("Slytherin")
+            }
+            .font(.title) // This is an environment modifier.
         }
     }
 }
