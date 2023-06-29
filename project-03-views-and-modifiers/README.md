@@ -216,3 +216,31 @@ var spells: some View {
 
 ## View Composition
 
+You can split up your code into smaller chunks to make it easier and reduce repetition in your code by using custom view composition. For example, create a custom struct called CapsuleText that will format some text that is passed to it with some modifiers:
+
+``` swift
+struct CapsuleText: View {
+    var text: String
+
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            .foregroundColor(.white)
+            .background(.blue)
+            .clipShape(Capsule())
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            CapsuleText(text: "First")
+            CapsuleText(text: "Second")
+        }
+    }
+}
+```
+
+A good use case for this would be putting a custom frame around photos to show various attributes or a menu.
+
