@@ -14,6 +14,7 @@ struct ContentView: View {
                 .background(.red)
                 .frame(maxWidth: 100, maxHeight: 100)
             
+            // An example of modifier order execution:
             Text("Hello, world!")
                 .padding()
                 .background(.red)
