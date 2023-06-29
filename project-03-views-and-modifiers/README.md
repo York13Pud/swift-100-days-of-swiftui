@@ -148,3 +148,31 @@ struct ContentView: View {
 }
 ```
 
+## Environment Modifiers
+
+An environment modifier is a modifier that will be applied to a container of elements. For example, apply a font size to a VStack:
+
+``` swift
+VStack {
+    Text("Gryffindor")
+    Text("Hufflepuff")
+    Text("Ravenclaw")
+    Text("Slytherin")
+}
+.font(.title) // This is an environment modifier.
+```
+
+Now, you can override an environment modifier within the container. For example, change one of the Text boxes font to be bigger than the rest:
+
+``` swift
+VStack {
+    Text("Gryffindor")
+        .font(.largeTitle)
+    Text("Hufflepuff")
+    Text("Ravenclaw")
+    Text("Slytherin")
+}
+.font(.title) // This is an environment modifier.
+```
+
+## Views As Properties
