@@ -176,3 +176,43 @@ VStack {
 ```
 
 ## Views As Properties
+
+You can store views as properties. For example:
+
+``` swift
+struct ContentView: View {
+    let motto1 = Text("Draco dormiens")
+    let motto2 = Text("nunquam titillandus")
+
+    var body: some View {
+        VStack {
+            motto1
+                .foregroundColor(.red)
+            motto2
+                .foregroundColor(.blue)
+        }
+    }
+}
+```
+
+You can also create computed properties if you want, like this:
+
+``` swift
+var motto1: some View {
+    Text("Draco dormiens")
+}
+```
+
+Or like this (you can also change `VStack` to `Group`):
+
+``` swift
+var spells: some View {
+    VStack {
+        Text("Lumos")
+        Text("Obliviate")
+    }
+}
+```
+
+## View Composition
+
