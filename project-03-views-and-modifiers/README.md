@@ -94,3 +94,15 @@ Text("Hello, world!")
 ```
 
 This code will start with a red padded box for the "Hello, world!" text and then add another padded blue box around, then green and lastly yellow.
+
+## WTF Does SwiftUI Use “some View” For Its View Type?
+
+TL:DR: `some View` allows the View to return any type (`some`) that conforms to the `View` protocol. These are opaque return types.
+
+SwiftUI relies very heavily on a Swift power feature called “opaque return types”, which you can see in action every time you write `some View`. This means “one object that conforms to the `View` protocol, but we don’t want to say what.”
+
+Returning some View means even though we don’t know what view type is going back, the compiler does. That might sound small, but it has important implications.
+
+Side Note: The reason we can only have 10 elements at a time is because SwiftUI wraps them in a method called `TupleView`, which is hard coded to allow only 10 `buildBlocks`.
+
+## Conditional Modifiers
