@@ -106,3 +106,45 @@ Returning some View means even though we don’t know what view type is going ba
 Side Note: The reason we can only have 10 elements at a time is because SwiftUI wraps them in a method called `TupleView`, which is hard coded to allow only 10 `buildBlocks`.
 
 ## Conditional Modifiers
+
+Conditional modifiers allow SwiftUI to change a modifier based on a condition occurring. For example, change the text of a button from blue to red:
+
+First, how to do it without a modifier:
+
+``` swift
+struct ContentView: View {
+    @State private var useRedText = false
+    
+    var body: some View {
+        if useRedText {
+            Button("Hello World") {
+                useRedText.toggle()
+            }
+            .foregroundColor(.red)
+        } else {
+            Button("Hello World") {
+                useRedText.toggle()
+            }
+            .foregroundColor(.blue)
+        }
+    }
+}
+```
+
+Whilst that does work, there is a cleaner way by using a condition modifier:
+
+``` swift
+// An example of a conditional modifier:
+
+struct ContentView: View {
+    @State private var useRedText = false
+
+    var body: some View {
+        Button("Hello World") {
+            useRedText.toggle() // flip the Boolean between true and false            
+        }
+        .foregroundColor(useRedText ? .red : .blue) // .blue is for false, .red is for true
+    }
+}
+```
+
