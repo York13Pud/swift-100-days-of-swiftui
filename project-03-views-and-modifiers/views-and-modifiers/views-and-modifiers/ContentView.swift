@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+// An example of a custom view composition:
+struct CapsuleText: View {
+    var text: String
+
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            .foregroundColor(.white)
+            .background(.blue)
+            .clipShape(Capsule())
+    }
+}
+
 struct ContentView: View {
     @State private var useRedText = false
     var body: some View {
@@ -47,6 +61,12 @@ struct ContentView: View {
                 Text("Slytherin")
             }
             .font(.title) // This is an environment modifier.
+            
+            // An example of calling a custom view composition:
+            VStack(spacing: 10) {
+                        CapsuleText(text: "First")
+                        CapsuleText(text: "Second")
+            }
         }
     }
 }
