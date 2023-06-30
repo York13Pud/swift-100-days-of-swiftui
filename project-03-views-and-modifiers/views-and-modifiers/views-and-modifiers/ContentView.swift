@@ -41,6 +41,22 @@ extension View {
     }
 }
 
+// Project 3 custom view modifier challenge:
+struct LargeBlueFont: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+extension View {
+    func largeBlueFontStyle() -> some View {
+        modifier(LargeBlueFont())
+    }
+}
+// End of project 3 view modifier code challenge.
+
 struct ContentView: View {
     @State private var useRedText = false
     var body: some View {
@@ -92,9 +108,16 @@ struct ContentView: View {
             
             // An example of calling a custom view composition:
             VStack(spacing: 10) {
-                        CapsuleText(text: "First")
-                        CapsuleText(text: "Second")
+                CapsuleText(text: "First")
+            //    CapsuleText(text: "Second")
             }
+            
+            // Project 3 custom view modifier usage example:
+            VStack {
+                Text("Project 3 View Modifier")
+                    .largeBlueFontStyle()
+            }
+            // End of project 3 view modifier usage challenge.
         }
     }
 }
