@@ -83,6 +83,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Text("\(totalPerPerson[2], format: deviceCurrency)")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(tipPercentage == 0 ? .red : .black) // conditional formatter
                         }
                         
                         HStack {
