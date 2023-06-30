@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+// A view composition that is used to create a flag:
+
+struct FlagImage: View {
+    var country: String
+    
+    var body: some View {
+        Image(country)
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .shadow(radius: 5)
+    }
+}
+
 struct ContentView: View {
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
@@ -19,6 +32,7 @@ struct ContentView: View {
     @State var countries: Array = ["Estonia", "France", "Germany", "Ireland", "Italy",
                      "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
 
+    
     var body: some View {
         
         ZStack {
@@ -49,14 +63,14 @@ struct ContentView: View {
                     ForEach(0..<3) { number in
                         Button {
                             flagTapped(number)
-                        } label: {
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(Capsule())
-                                .shadow(radius: 5)
+                        }
+                        
+                    label: {
+                        FlagImage(country: countries[number])
                         }
                         
                     }
+                    
                     if questionCount > 8 {
                         Text("Game OVer")
                             .font(.subheadline.weight(.heavy))
@@ -74,7 +88,6 @@ struct ContentView: View {
                     .background(.regularMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 Spacer()
-//                Spacer()
                 
                 Text("Score: \(playerScore)")
                     .foregroundColor(.white)
