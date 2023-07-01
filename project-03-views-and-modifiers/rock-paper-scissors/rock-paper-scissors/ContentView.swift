@@ -7,9 +7,58 @@
 
 import SwiftUI
 
-let choice: Array<String> = ["rock", "paper", "scissors"]
+let choice: Array<String> = ["Rock", "Paper", "Scissors"]
 let choiceEmoji: Array<String> = ["✊", "✋", "✌️"]
-let choiceBeats: Array<String> = ["scissors", "rock", "paper"]
+let choiceBeats: Array<String> = ["Scissors", "Rock", "Paper"]
+
+// A custom modifier for most of the text:
+struct subTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .foregroundColor(.white)
+    }
+}
+
+// Custom extension for subTitle:
+extension View {
+    func subTitleStyle() -> some View {
+        modifier(subTitle())
+    }
+}
+
+// A custom modifier for the choice buttons:
+struct choiceButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 20)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+// Custom extension for choiceButton:
+extension View {
+    func choiceButtonStyle() -> some View {
+        modifier(choiceButton())
+    }
+}
+
+struct choiceLabel: View {
+    var choiceIcon: String
+    var choiceText: String
+    
+    var body: some View {
+        VStack {
+            Text(choiceIcon)
+                .font(.largeTitle)
+            Text(choiceText)
+                .font(.body)
+                .foregroundColor(.primary)
+        }
+    }
+}
 
 struct ContentView: View {
     @State var playerChoice:String = ""
@@ -17,13 +66,14 @@ struct ContentView: View {
     
     @State var playerScore:Int = 0
     @State var computerScore:Int = 0
+    @State var roundCounter:Int = 0
     
     @State var showAlert: Bool = false
     
     var body: some View {
         
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.cyan, .purple]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [.purple, .red]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
          
             VStack {
@@ -40,64 +90,23 @@ struct ContentView: View {
                     Spacer()
                     
                     Text("Select your move".capitalized)
-                        .font(.title)
-                        .foregroundColor(.white)
                     
                     HStack {
-                        Button {
-                            print("rock")
-                        }
-                        label: {
-                            VStack {
-                                Text("✊")
-                                    .font(.largeTitle)
-                                Text("Rock")
-                                    .foregroundColor(.primary)
-                            }
-                            
-                        }.frame(maxWidth: .infinity)
-                        .padding(.vertical, 20)
-                        .background(.regularMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
                         
-                        Spacer()
-                        
-                    Button {
-                            print("paper")
-                        }
-                        label: {
-                            VStack {
-                                Text("✋")
-                                    .font(.largeTitle)
-                                Text("Paper")
-                                    .foregroundColor(.primary)
+                        ForEach(0..<3) { number in
+                            Button {
+                                print(choice[number])
                             }
+                            label: {
+                                choiceLabel(choiceIcon: choiceEmoji[number],
+                                            choiceText: choice[number])
+                                
+                            } .choiceButtonStyle()
                         }
-                        .frame(maxWidth: .infinity)
-                            .padding(.vertical, 20)
-                            .background(.regularMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-
-                    Spacer()
-                    
-                    Button {
-                        print("Scissors")
-                    }
-                    label: {
-                        VStack {
-                            Text("✌️")
-                                .font(.largeTitle)
-                            Text("Scissors")
-                                .foregroundColor(.primary)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                        .padding(.vertical, 20)
-                        .background(.regularMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        
                     }
                     // End of player choice area.
-
+                    Text("Round 1 / 10".capitalized)
                     Spacer()
                     
                     // Scores area:
@@ -123,14 +132,32 @@ struct ContentView: View {
                             }
                             
                         }
-                    }.font(.title)
-                        .foregroundColor(.white)
+                        
+                    }
                     // End of scores area.
                     
-                }
+                } .subTitleStyle()
             }
             .padding()
         }
+    }
+    
+    // Functions in here
+    
+    // Check choices
+    
+    
+    
+    // Restart game
+    func restartGame() {
+        playerChoice = ""
+        computerChoice = ""
+            
+        playerScore = 0
+        computerScore = 0
+        roundCounter = 0
+            
+        showAlert = false
     }
 }
 
