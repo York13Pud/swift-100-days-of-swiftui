@@ -277,7 +277,7 @@ struct ContentView: View {
             Text("Hello World")
                 .modifier(Title())
             
-            // Example 1 of using a custom modifier - Use the titleStyle extension:
+            // Example 2 of using a custom modifier - Using the titleStyle extension:
             Text("Hello World")
                 .titleStyle() // Both results are the same.
         }
