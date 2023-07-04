@@ -55,3 +55,18 @@ A quick breakdown of the code:
 - `in: Date.now...` = This specifies the range to use. In this case, the `Date.now...` will signal that the only dates selectable are from today (`Date.now`) and onwards (`...`).
 - `displayedComponents` = Show just the date picker (`.date`) or just the time picker (`.hourAndMinute`).
 - `.labelsHidden` = Hide the label text (`"Please enter a date"`).
+
+## Create ML
+
+Create ML is an app that is installed with Xcode to enable you to train and create machine learning models that can be used on Apple devices.
+
+All you do is:
+
+- Create a new Create ML project with the required model type (regression for example).
+- Tell it what data to use.
+- Which target from the data to use.
+- Which features to use to come up with the target.
+- The algorithm to use (automatic is the default).
+- The validation to use (automatic is the default).
+
+Once done, train the model and see what the results are. If the model is ok, you can save it to be used in Xcode.
