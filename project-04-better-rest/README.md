@@ -25,3 +25,33 @@ To break that code block down:
 - `step: 0.25` = Increase or decrease the value by increments of 0.25.
 
 There is also a slider view to enter numbers but steppers are more precise.
+
+## Selecting Dates And Times With DatePicker
+
+This is easy enough. It allows you select a date and time. For example:
+
+``` swift
+import SwiftUI
+
+struct ContentView: View {
+    @State private var wakeUp = Date.now
+
+    var body: some View {
+        VStack {
+            DatePicker("Please enter a date",
+                       selection: $wakeUp,
+                       in: Date.now...,
+                       displayedComponents: .date)
+                .labelsHidden()
+        }
+    }
+}
+```
+
+A quick breakdown of the code:
+
+- `DatePicker` = The date and time picker view that will, by default, show a picker for the date and another picker for the time.
+- `selection` = The binding to use.
+- `in: Date.now...` = This specifies the range to use. In this case, the `Date.now...` will signal that the only dates selectable are from today (`Date.now`) and onwards (`...`).
+- `displayedComponents` = Show just the date picker (`.date`) or just the time picker (`.hourAndMinute`).
+- `.labelsHidden` = Hide the label text (`"Please enter a date"`).
