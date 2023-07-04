@@ -22,6 +22,7 @@ struct ContentView: View {
                        in: Date.now...,
                        displayedComponents: .date)
                 .labelsHidden()
+            Text(wakeUp, format: .dateTime.day().month().year())
         }
     }
 }
