@@ -70,3 +70,7 @@ All you do is:
 - The validation to use (automatic is the default).
 
 Once done, train the model and see what the results are. If the model is ok, you can save it to be used in Xcode.
+
+## Connecting SwiftUI To Core ML
+
+First, drag and drop the exported CreateML model into Xcode. It will then create a hidden class based on the filename of the model. It is recommended to rename the file as a class meaning capitalise each word in the name. Remove any spaces.

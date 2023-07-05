@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28A2EB2D2A55904500F4C574 /* SleepCalculator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 28A2EB2C2A55904500F4C574 /* SleepCalculator.mlmodel */; };
 		28FC3FC42A541CB900B2DECD /* better_restApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC3FC32A541CB900B2DECD /* better_restApp.swift */; };
 		28FC3FC62A541CB900B2DECD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC3FC52A541CB900B2DECD /* ContentView.swift */; };
 		28FC3FC82A541CBA00B2DECD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28FC3FC72A541CBA00B2DECD /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28A2EB2C2A55904500F4C574 /* SleepCalculator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SleepCalculator.mlmodel; path = "../../better-rest-ml/SleepCalculator.mlmodel"; sourceTree = "<group>"; };
 		28FC3FC02A541CB900B2DECD /* better-rest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "better-rest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FC3FC32A541CB900B2DECD /* better_restApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = better_restApp.swift; sourceTree = "<group>"; };
 		28FC3FC52A541CB900B2DECD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				28FC3FC32A541CB900B2DECD /* better_restApp.swift */,
 				28FC3FC52A541CB900B2DECD /* ContentView.swift */,
+				28A2EB2C2A55904500F4C574 /* SleepCalculator.mlmodel */,
 				28FC3FC72A541CBA00B2DECD /* Assets.xcassets */,
 				28FC3FC92A541CBA00B2DECD /* Preview Content */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				28FC3FC62A541CB900B2DECD /* ContentView.swift in Sources */,
 				28FC3FC42A541CB900B2DECD /* better_restApp.swift in Sources */,
+				28A2EB2D2A55904500F4C574 /* SleepCalculator.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
