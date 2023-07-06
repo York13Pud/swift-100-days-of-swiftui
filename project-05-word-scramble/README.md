@@ -45,15 +45,18 @@ One way to split up a string is to use the `.components` method against a var or
 
 ``` swift
 func test() {
+    // Split up a string of letters using `,` as the separator:
     let input = "a,b,c"
     let letters = input.components(separatedBy: ",")
     print(letters)
 
+    // Get a random letter from the letters array:
     let letter = letters.randomElement() // Get a single character. Returns as an optional.
     print(letter ?? "a") // If letter is nill, use a as the default value.
 
+    // Trim any whitespace:
     let trimmed = letter?.trimmingCharacters(in: .whitespacesAndNewlines) // Remove whitespace
-    print(trimmed ?? "")
+    print(trimmed ?? "") // If trimmed is nill, use "" as the default value.
 
     let word = "swift"
     let checker = UITextChecker() // The spell checker
