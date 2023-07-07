@@ -16,12 +16,15 @@ struct ContentView: View {
         NavigationView {
             List {
                 Section {
-                    TextField("Enter your word".capitalized, text: $newWord)
+                    TextField("Enter your word", text: $newWord)
                 }
                 
                 Section {
                     ForEach(usedWords, id: \.self) { word in
-                        Text(word)
+                        HStack {
+                            Image(systemName: "\(word.count).circle") // Adds a circle with the char count in it.
+                            Text(word)
+                        }
                     }
                 }
             }
@@ -33,10 +36,14 @@ struct ContentView: View {
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard answer.count > 0 else { return }
+        guard answer.count > 0 else { return } // Checks that the word is > 0. If true, carry on. If false, stop
         
-        usedWords.insert(answer, at: 0)
-        newWord = ""
+        withAnimation { // Make the item in the list show up in a nicer way.
+            usedWords.insert(answer, at: 0) // Using insert rather than append will put the word at the beginning of
+            // the array and show up at the top of the list of used words in the app.
+            // Append would put the word at the bottom of the list in the app.
+            newWord = "" // Blank out newWord to reset it.
+        }
     }
     
 }
