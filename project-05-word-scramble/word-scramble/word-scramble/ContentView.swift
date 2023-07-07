@@ -8,44 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    let people = ["Finn", "Leia", "Luke", "Rey"]
-    
-    func test() {
-        let input = "a,b,c"
-        let letters = input.components(separatedBy: ",")
-        print(letters)
-        
-        let letter = letters.randomElement() // Get a single character
-        print(letter ?? "a")
-        
-        let trimmed = letter?.trimmingCharacters(in: .whitespacesAndNewlines) // Remove whitespace
-        print(trimmed ?? "")
-        
-        // Run a word through a spell checker:
-        let word = "swift"
-        let checker = UITextChecker() // The spell checker
-        let range = NSRange(location: 0, length: word.utf16.count) // Specify the length of the word to check
-        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
-        let allGood = misspelledRange.location == NSNotFound
-        print(allGood) // Returns true if word is spelled correctly, false otherwise.
-    }
+    @State private var usedWords = [String]()
+    @State private var rootWord = ""
+    @State private var newWord = ""
     
     var body: some View {
-        VStack {
+        NavigationView {
             List {
-                Text("Static Row")
-                
-                ForEach(people, id: \.self) {
-                    Text($0)
+                Section {
+                    TextField("Enter your word".capitalized, text: $newWord)
                 }
                 
-                Text("Static Row")
+                Section {
+                    ForEach(usedWords, id: \.self) { word in
+                        Text(word)
+                    }
+                }
             }
-            Button("Click Me", action: {test()})
         }
-    
+        .navigationTitle(rootWord)
+        .onSubmit(addNewWord)
+        
     }
+    func addNewWord() {
+        let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard answer.count > 0 else { return }
+        
+        usedWords.insert(answer, at: 0)
+        newWord = ""
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
