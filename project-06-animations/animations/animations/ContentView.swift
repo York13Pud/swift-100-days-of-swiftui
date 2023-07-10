@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var animationAmount3 = 1.0
     @State private var animationAmount4 = 1.0
     @State private var animationAmount5 = 0.0
+    @State private var enabled = false
     
     var body: some View {
         VStack {
@@ -40,39 +41,39 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 2).repeatForever(autoreverses: true),
                            value: animationAmount2)
             }
-            
-            Button("Tap Me") {
-                animationAmount3 += 0.25
-            }
-            .padding(50)
-            .background(.green)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .overlay(
-                Circle()
-                    .stroke(.green)
-                    .scaleEffect(animationAmount3)
-                    .opacity(2 - animationAmount3)
-                    .animation(
-                        .easeOut(duration: 1)
+            HStack {
+                Button("Tap Me") {
+                    animationAmount3 += 0.25
+                }
+                .padding(50)
+                .background(.green)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.green)
+                        .scaleEffect(animationAmount3)
+                        .opacity(2 - animationAmount3)
+                        .animation(
+                            .easeOut(duration: 1)
                             .repeatForever(autoreverses: false),
-                        value: animationAmount3
-                    )
-            )
-            .onAppear {
-                animationAmount3 = 2
+                            value: animationAmount3
+                        )
+                )
+                .onAppear {
+                    animationAmount3 = 2
+                }
+                .animation(.easeInOut(duration: 2).repeatForever(autoreverses: true),
+                           value: animationAmount3)
+                
+                Button("Tap Me") {
+                    // do nothing
+                }
+                .padding(50)
+                .background(.purple)
+                .foregroundColor(.white)
+                .clipShape(Circle())
             }
-            .animation(.easeInOut(duration: 2).repeatForever(autoreverses: true),
-                       value: animationAmount3)
-            
-            Button("Tap Me") {
-                        // do nothing
-                    }
-                    .padding(50)
-                    .background(.purple)
-                    .foregroundColor(.white)
-                    .clipShape(Circle())
-            
             HStack {
                 Spacer()
                 
@@ -92,17 +93,28 @@ struct ContentView: View {
                 
                 Spacer()
             }
-            
-            Button("Tap Me") {
-                withAnimation(.interpolatingSpring(stiffness: 3, damping: 1)) {
-                    animationAmount5 += 360
+            HStack {
+                Button("Tap Me") {
+                    withAnimation(.interpolatingSpring(stiffness: 3, damping: 1)) {
+                        animationAmount5 += 360
+                    }
                 }
+                .padding(50)
+                .background(.black)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .rotation3DEffect(.degrees(animationAmount5), axis: (x: 0, y: 1, z: 1))
+                
+                Button("Tap Me") {
+                    enabled.toggle()
+                }
+                .frame(width: 100, height: 100)
+                .background(enabled ? .blue : .red)
+                .animation(nil, value: enabled)
+                .foregroundColor(.white)
+                .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
+                .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: enabled)
             }
-            .padding(50)
-            .background(.black)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .rotation3DEffect(.degrees(animationAmount5), axis: (x: 0, y: 1, z: 1))
         }
     }
 }
