@@ -127,3 +127,36 @@ Button("Tap Me") {
 .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
 .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: enabled)
 ```
+
+## Animating Gestures
+
+You can animate a view when you use gestures, such as moving things around the screen. For example, the below will animate a text view so that the letters are split up to resemble an almost snake-like pattern on the screen. It will also change the colour when released and snap back to a line of text:
+
+``` swift
+struct ContentView: View {
+    let letters = Array("Hello SwiftUI")
+    @State private var enabled = false
+    @State private var dragAmount = CGSize.zero
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(0..<letters.count, id: \.self) { num in
+                Text(String(letters[num]))
+                    .padding(5)
+                    .font(.title)
+                    .background(enabled ? .blue : .red)
+                    .offset(dragAmount)
+                    .animation(.default.delay(Double(num) / 20), value: dragAmount)
+            }
+        }
+        .gesture(
+            DragGesture()
+                .onChanged { dragAmount = $0.translation }
+                .onEnded { _ in
+                    dragAmount = .zero
+                    enabled.toggle()
+                }
+        )
+    }
+}
+```
