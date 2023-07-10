@@ -54,3 +54,54 @@ There are lots of animation options to chose from, which will not be possible to
 
 ## Animating Bindings
 
+You can, for example, animate a buttons based on a value that bound to a stepper. For example:
+
+``` swift
+struct ContentView: View {
+    @State private var animationAmount = 1.0
+
+    var body: some View {
+        VStack {
+            Stepper("Scale amount", value: $animationAmount.animation(), in: 1...10)
+
+            Spacer()
+
+            Button("Tap Me") {
+                animationAmount += 1
+            }
+            .padding(40)
+            .background(.red)
+            .foregroundColor(.white)
+            .clipShape(Circle())
+            .scaleEffect(animationAmount)
+        }
+    }
+}
+```
+
+This wil increase or decrease the size of the button when the stepper is invoked. It will increase up to a value of 10x the original size (`1...10`).
+
+## Creating Explicit Animations
+
+This method tells SwiftUI that we are explicitly asking it to animate changes occurring as the result of a state change. For example, rotate a button 360 degrees along its y and z axis:
+
+``` swift
+struct ContentView: View {
+    @State private var animationAmount5 = 0.0
+    
+    var body: some View {
+        VStack {
+            Button("Tap Me") {
+                withAnimation(.interpolatingSpring(stiffness: 3, damping: 1)) {
+                    animationAmount5 += 360
+                }
+            }
+            .padding(50)
+            .background(.black)
+            .foregroundColor(.white)
+            .clipShape(Circle())
+            .rotation3DEffect(.degrees(animationAmount5), axis: (x: 0, y: 1, z: 1))
+        }
+    }
+}
+```
