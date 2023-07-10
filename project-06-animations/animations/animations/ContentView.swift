@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var animationAmount4 = 1.0
     @State private var animationAmount5 = 0.0
     @State private var enabled = false
+    @State private var isShowingRed = false
     
     var body: some View {
         VStack {
@@ -114,6 +115,21 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
                 .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: enabled)
+            }
+            
+            HStack {
+                Button("Tap Me") {
+                    withAnimation {
+                        isShowingRed.toggle()
+                    }
+                }
+
+                if isShowingRed {
+                    Rectangle()
+                        .fill(.red)
+                        .frame(width: 50, height: 50)
+                        .transition(.asymmetric(insertion: .scale, removal: .opacity))
+                }
             }
         }
     }
