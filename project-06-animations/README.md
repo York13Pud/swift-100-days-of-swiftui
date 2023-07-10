@@ -105,3 +105,25 @@ struct ContentView: View {
     }
 }
 ```
+
+## Controlling The Animation Stack
+
+Modifier order matters, because SwiftUI wraps views with modifiers in the order they are applied.
+
+We can apply an `animation()` modifier to a view in order to have it implicitly animate changes.
+
+You can have as many `animation()` modifiers as you need to construct your design, which lets us split one state change into as many segments as we need.
+
+For even more control, it’s possible to disable animations entirely by passing nil to the modifier. For example, you might want the color change to happen immediately but the clip shape to retain its animation, in which case you’d write this:
+
+``` swift
+Button("Tap Me") {
+    enabled.toggle()
+}
+.frame(width: 200, height: 200)
+.background(enabled ? .blue : .red)
+.animation(nil, value: enabled)
+.foregroundColor(.white)
+.clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
+.animation(.interpolatingSpring(stiffness: 10, damping: 1), value: enabled)
+```
