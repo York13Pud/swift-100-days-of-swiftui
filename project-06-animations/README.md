@@ -160,3 +160,32 @@ struct ContentView: View {
     }
 }
 ```
+
+## Showing And Hiding Views With Transitions
+
+A quick example that will hide a square box by default and show it when the button is pressed:
+
+``` swift
+struct ContentView: View {
+    @State private var isShowingRed = false
+
+    var body: some View {
+        VStack {
+            Button("Tap Me") {
+                withAnimation {
+                    isShowingRed.toggle()
+                }
+            }
+
+            if isShowingRed {
+                Rectangle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+            }
+        }
+    }
+}
+```
+
+`.asymmetric(` allows for different transitions when showing and removing the box.
