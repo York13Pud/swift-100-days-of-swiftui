@@ -59,3 +59,8 @@ struct ContentView: View {
 Now, if you take `@Published` away from `lastName`, it would not update in the UI but updating `firstName` will show the updates in the UI.
 
 Note: `@StateObject` is used when creating the object. If you are just referencing that variable later on, use `@ObservedObject` which is used for using an existing objects state, rather than rebuilding the same thing.
+
+## Showing And Hiding A Sheet View
+
+Sheets are views that pop up from the bottom. An example is when a pair of AirPods are discovered and are shown in at the bottom of the screen with the rest faded out. That is a sheet view. For example:
+
