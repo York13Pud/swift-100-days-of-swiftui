@@ -15,20 +15,37 @@ class User: ObservableObject {
 
 // This view will be used for a sheet that will pop-up.
 struct SecondView: View {
+    @Environment(\.dismiss) var dismiss // This will be used to dismiss the sheet
+    
+    let name: String
+    
     var body: some View {
-        Text("Second View")
+        VStack {
+            Text("Hello \(name)")
+            Button("Dismiss Sheet") {
+                dismiss()
+            }
+        }
     }
 }
 
 struct ContentView: View {
     @StateObject private var user = User()
-
+    @State public var showingSheet = false
+    
     var body: some View {
         VStack {
             Text("Your name is \(user.firstName) \(user.lastName).")
 
             TextField("First name", text: $user.firstName)
             TextField("Last name", text: $user.lastName)
+
+            Button("Show Sheet") {
+                showingSheet.toggle()
+            }
+            .sheet(isPresented: $showingSheet) {
+                SecondView(name: "Fred")
+            }
         }
     }
 }
