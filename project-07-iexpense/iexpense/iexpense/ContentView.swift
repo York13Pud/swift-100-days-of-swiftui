@@ -13,6 +13,13 @@ class User: ObservableObject {
     @Published var lastName = "Baggins"
 }
 
+// This view will be used for a sheet that will pop-up.
+struct SecondView: View {
+    var body: some View {
+        Text("Second View")
+    }
+}
+
 struct ContentView: View {
     @StateObject private var user = User()
 
