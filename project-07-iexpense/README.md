@@ -64,3 +64,40 @@ Note: `@StateObject` is used when creating the object. If you are just referenci
 
 Sheets are views that pop up from the bottom. An example is when a pair of AirPods are discovered and are shown in at the bottom of the screen with the rest faded out. That is a sheet view. For example:
 
+``` swift
+import SwiftUI
+
+// This view will be used for a sheet that will pop-up.
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss // This will be used to dismiss the sheet
+    
+    let name: String
+    
+    var body: some View {
+        VStack {
+            Text("Hello \(name)")
+            Button("Dismiss Sheet") {
+                dismiss()
+            }
+        }
+    }
+}
+
+struct ContentView: View {
+    @State public var showingSheet = false
+    
+    var body: some View {
+        VStack {
+            Button("Show Sheet") {
+                showingSheet.toggle()
+            }
+            .sheet(isPresented: $showingSheet) {
+                SecondView(name: "Fred")
+            }
+        }
+    }
+}
+```
+
+The `@Environment` property wrapper is used to get external information from the device, such as dark/light mode, system font size etc. In the above example, it is used to dismiss the sheet view as it could have been presented in a number of ways so we let the system (Environment) do it for us.
+
