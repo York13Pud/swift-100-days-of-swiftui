@@ -32,3 +32,30 @@ However, if you change `struct user` to `class user`, the text will not update i
 
 ## @StateObject
 
+For a variable to be updated with with updates from a property in a class, the `@StateObject` wrapper is used instead of `@State`.
+
+Now, this is only half the battle. Changing only that will not work on its own. In addition, the property (or properties) in the class that need to provide updates to the variable calling the class need to publish those updates. This is done using the `@Published` wrapper in front of the property. In addition, the class needs to use the `ObservableObject` protocol so that the published changes can be made visible. For example:
+
+``` swift
+class User: ObservableObject {
+    @Published var firstName = "Bilbo"
+    @Published var lastName = "Baggins"
+}
+
+struct ContentView: View {
+    @StateObject private var user = User()
+
+    var body: some View {
+        VStack {
+            Text("Your name is \(user.firstName) \(user.lastName).")
+
+            TextField("First name", text: $user.firstName)
+            TextField("Last name", text: $user.lastName)
+        }
+    }
+}
+```
+
+Now, if you take `@Published` away from `lastName`, it would not update in the UI but updating `firstName` will show the updates in the UI.
+
+Note: `@StateObject` is used when creating the object. If you are just referencing that variable later on, use `@ObserveObject` which is used for using an existing objects state, rather than rebuilding the same thing.
