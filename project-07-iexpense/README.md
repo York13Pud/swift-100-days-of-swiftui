@@ -148,3 +148,55 @@ When you slide from the right to left on a list item, it will delete it.
 Also, you can use the edit button to delete items in the list.
 
 ## Storing User Settings With UserDefaults
+
+UserDefaults is used to store and retrieve data that you want to store for user settings in an app. For example, a high score on a locally played game that has no central scoreboard online.
+
+For example:
+
+``` swift
+struct ContentView: View {
+
+    // This will save the tap count to user defaults with a key name of "Tap":
+    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    
+    // This will do the same as the above but using AppStorage instead.
+    // AppStorage allows for a default value to be assigned if the key does not exist:
+    @AppStorage("tapCountAppStorage") private var tapCountAppStorage = 0
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                
+                // Adds one to tapCount and shows the value from the UserDefaults "Tap" key:
+                Button("Tap count: \(tapCount)") {
+                    tapCount += 1
+                    UserDefaults.standard.set(self.tapCount, forKey: "Tap")
+                }
+                
+                // Does the same as the above but uses AppStorage instead:
+                Button("Tap count: \(tapCountAppStorage)") {
+                    tapCountAppStorage += 1
+                }
+                
+            }.navigationTitle("Testing")
+                .toolbar {
+                    EditButton()
+                }
+            
+        }
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        numbers.remove(atOffsets: offsets)
+    }
+}
+```
+
+In the above, there are two methods shown for storing data. First is `UserDefaults` which has a lot of functionality to it. The second is `AppStorage` which is simpler but lacks the further customisation of `UserDefaults` and is only available for SwiftUI.
+
+Try not to store more than 0.5MB of user settings as it can slow down the loading of the app.
+
+There is a delay in writing data to UserDefaults. What it is exactly is unknown but it could be around two seconds.
+
+## Archiving Swift Objects With Codable
+
