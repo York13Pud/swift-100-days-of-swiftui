@@ -58,4 +58,4 @@ struct ContentView: View {
 
 Now, if you take `@Published` away from `lastName`, it would not update in the UI but updating `firstName` will show the updates in the UI.
 
-Note: `@StateObject` is used when creating the object. If you are just referencing that variable later on, use `@ObserveObject` which is used for using an existing objects state, rather than rebuilding the same thing.
+Note: `@StateObject` is used when creating the object. If you are just referencing that variable later on, use `@ObservedObject` which is used for using an existing objects state, rather than rebuilding the same thing.
