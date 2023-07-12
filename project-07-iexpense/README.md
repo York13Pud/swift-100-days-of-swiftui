@@ -101,3 +101,50 @@ struct ContentView: View {
 
 The `@Environment` property wrapper is used to get external information from the device, such as dark/light mode, system font size etc. In the above example, it is used to dismiss the sheet view as it could have been presented in a number of ways so we let the system (Environment) do it for us.
 
+## Deleting Items Using onDelete()
+
+The `onDelete()` modifier is used in a `List` item when you use a `ForEach` loop to allow for an item to be deleted.
+
+A function is required to perform the delete action. For example:
+
+``` swift
+struct ContentView: View {
+    @State private var numbers = [Int]()
+    @State private var currentNumber = 1
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+
+                List {
+                    ForEach(numbers, id: \.self) {
+                        Text("Row \($0)")
+                    }.onDelete(perform: removeRows)
+                }
+                
+                Button("Add Number To List") {
+                    numbers.append(currentNumber)
+                    currentNumber += 1
+                }
+                
+            }.navigationTitle("Testing")
+                .toolbar {
+                    EditButton()
+                }
+            
+        }
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        numbers.remove(atOffsets: offsets)
+    }
+}
+```
+
+In the above, when the button is clicked, a value is added to an array and the value is increased by one. It then shows up in the list.
+
+When you slide from the right to left on a list item, it will delete it.
+
+Also, you can use the edit button to delete items in the list.
+
+## Storing User Settings With UserDefaults
