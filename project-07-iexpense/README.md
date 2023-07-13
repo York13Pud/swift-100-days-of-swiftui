@@ -253,3 +253,45 @@ That accesses UserDefaults directly rather than going through @AppStorage, becau
 That data constant is a new data type called, perhaps confusingly, Data. It’s designed to store any kind of data you can think of, such as strings, images, zip files, and more. Here, though, all we care about is that it’s one of the types of data we can write straight into UserDefaults.
 
 When we’re coming back the other way – when we have JSON data and we want to convert it to Swift Codable types – we should use JSONDecoder rather than JSONEncoder(), but the process is much the same.
+
+## Working With Identifiable Items In SwiftUI
+
+Basically, add an ID field to your data structure that uses an auto-generated UUID using UUID v4. For example:
+
+``` swift
+struct ExpenseItem: Identifiable {
+    let id: UUID = UUID()
+    let name: String
+    let type: String
+    let amount: Double
+}
+```
+
+`Identifiable` is a protocol that flags to SwiftUI that this is an identifiable struct. It *MUST* have a field called `id` for it to conform to the protocol.
+
+As the `Identifiable` protocol has been added to the struct above, a ForEach loop can be rewritten from this:
+
+``` swift
+List {
+    ForEach(expenses.items, id: \.id) { item in
+        Text(item.name)
+    }
+    .onDelete(perform: removeItems)
+}
+```
+
+to this:
+
+``` swift
+List {
+    ForEach(expenses.items) { item in
+        Text(item.name)
+    }
+    .onDelete(perform: removeItems)
+}
+```
+
+The `ForEach` loop will know that the struct has a unique identifier called `id` and use that by default to identify the items, rather than specifying which one to use. There is however no reason why you can't use the previous `ForEach` loop. It will work exactly the same but with a little more code.
+
+The choice is yours!
+
