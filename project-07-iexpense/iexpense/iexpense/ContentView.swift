@@ -7,91 +7,55 @@
 
 import SwiftUI
 
-
-class User: ObservableObject {
-    @Published var firstName = "Bilbo"
-    @Published var lastName = "Baggins"
+// Create a new datatype struct that comprises the data to store for an expense:
+struct ExpenseItem: Identifiable {
+    let id = UUID()
+    let name: String
+    let type: String
+    let amount: Double
 }
 
-// This view will be used for a sheet that will pop-up.
-struct SecondView: View {
-    @Environment(\.dismiss) var dismiss // This will be used to dismiss the sheet
-    
-    let name: String
-    
-    var body: some View {
-        VStack {
-            Text("Hello \(name)")
-            Button("Dismiss Sheet") {
-                dismiss()
-            }
-        }
-    }
+// Create an array of expenses as a class that is published for updates:
+class Expenses: ObservableObject {
+    @Published var items = [ExpenseItem]()
 }
 
 struct ContentView: View {
-    @StateObject private var user = User()
-
-    @State public var showingSheet = false
-
-    @State private var numbers = [Int]()
-    @State private var currentNumber = 1
     
-    // This will save the tap count to user defaults with a key name of "Tap":
-    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
-    
-    // This will do the same as the above but using AppStorage instead.
-    // AppStorage allows for a default value to be assigned if the key does not exist:
-    @AppStorage("tapCountAppStorage") private var tapCountAppStorage = 0
+    @StateObject var expenses = Expenses()
     
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Your name is \(user.firstName) \(user.lastName).")
-
-                TextField("First name", text: $user.firstName)
-                TextField("Last name", text: $user.lastName)
-                
-                Button("Show Sheet") {
-                    showingSheet.toggle()
-                }
-                .sheet(isPresented: $showingSheet) {
-                    SecondView(name: "Fred")
-                }
-                
-                // Adds one to tapCount and shows the value from the UserDefaults "Tap" key:
-                Button("Tap count: \(tapCount)") {
-                    tapCount += 1
-                    UserDefaults.standard.set(self.tapCount, forKey: "Tap")
-                }
-                
-                // Does the same as the above but uses AppStorage instead:
-                Button("Tap count: \(tapCountAppStorage)") {
-                    tapCountAppStorage += 1
-                }
-                
-                List {
-                    ForEach(numbers, id: \.self) {
-                        Text("Row \($0)")
-                    }.onDelete(perform: removeRows)
-                }
-                
-                Button("Add Number To List") {
-                    numbers.append(currentNumber)
-                    currentNumber += 1
-                }
-                
-            }.navigationTitle("Testing")
-                .toolbar {
-                    EditButton()
-                }
             
+            // A list of all expenses:
+            List {
+                ForEach(expenses.items) { item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
+                
+            }
+            .navigationTitle("iExpense")
+            .toolbar {
+                
+                // A button to add an expense:
+                Button {
+                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
+                    expenses.items.append(expense)
+                    
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
         }
+        
     }
     
-    func removeRows(at offsets: IndexSet) {
-        numbers.remove(atOffsets: offsets)
+    // A function to remove an item from the expense array and list:
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
