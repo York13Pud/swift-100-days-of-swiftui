@@ -9,7 +9,7 @@ import SwiftUI
 
 // Create a new datatype struct that comprises the data to store for an expense:
 struct ExpenseItem: Identifiable {
-    let id = UUID()
+    let id: UUID = UUID()
     let name: String
     let type: String
     let amount: Double
@@ -31,6 +31,7 @@ struct ContentView: View {
             List {
                 ForEach(expenses.items) { item in
                     Text(item.name)
+                    // Text("\(item.id)")
                 }
                 .onDelete(perform: removeItems)
                 
