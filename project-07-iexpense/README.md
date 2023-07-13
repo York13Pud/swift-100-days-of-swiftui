@@ -295,3 +295,4 @@ The `ForEach` loop will know that the struct has a unique identifier called `id`
 
 The choice is yours!
 
+## Making Changes Permanent With UserDefaults
