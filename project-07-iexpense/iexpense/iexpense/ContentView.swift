@@ -37,6 +37,7 @@ class Expenses: ObservableObject {
         // If no data found, return an empty array:
         items = []
     }
+
 }
 
 struct ContentView: View {
@@ -44,14 +45,30 @@ struct ContentView: View {
     @StateObject var expenses = Expenses()
     @State private var showingAddExpense = false
     
+    let deviceCurrency: FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currency?.identifier ?? "USD")
+    
     var body: some View {
         NavigationView {
             
             // A list of all expenses:
             List {
                 ForEach(expenses.items) { item in
-                    Text(item.name)
-                    // Text("\(item.id)")
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+                        
+                        Spacer()
+                        
+                        Text(item.amount, format: deviceCurrency)
+                            .foregroundColor(item.amount >= 100 ? .red :
+                                                item.amount >= 10  ? .green :
+                                    .black)
+                        
+                    }
+    
                 }
                 .onDelete(perform: removeItems)
                 
