@@ -8,8 +8,8 @@
 import SwiftUI
 
 // Create a new datatype struct that comprises the data to store for an expense:
-struct ExpenseItem: Identifiable {
-    let id: UUID = UUID()
+struct ExpenseItem: Identifiable, Codable {
+    var id: UUID = UUID()
     let name: String
     let type: String
     let amount: Double
@@ -17,7 +17,26 @@ struct ExpenseItem: Identifiable {
 
 // Create an array of expenses as a class that is published for updates:
 class Expenses: ObservableObject {
-    @Published var items = [ExpenseItem]()
+    // Save the data to UserDefaults:
+    @Published var items = [ExpenseItem]() {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(items) {
+                UserDefaults.standard.set(encoded, forKey: "Items")
+            }
+        }
+    }
+    
+    // Read the data from UserDefaults at startup:
+    init() {
+        if let savedItems = UserDefaults.standard.data(forKey: "Items") {
+            if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItems) {
+                items = decodedItems
+                return
+            }
+        }
+        // If no data found, return an empty array:
+        items = []
+    }
 }
 
 struct ContentView: View {
